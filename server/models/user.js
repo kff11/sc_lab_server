@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
         'user', // 테이블의 이름을 지정합니다.
         {
-            user_id: {
+            number: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,

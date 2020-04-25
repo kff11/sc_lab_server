@@ -10,14 +10,12 @@ module.exports = {
             const body = req.body;
             const hash = hashing.enc(body.id, body.password, salt);
 
-            model.api.searchInfo(body, hash, result => {
+            model.user.findId(body, hash, result => {
                 let obj = {};
                 if (result[0]) {
                     obj['suc'] = true;
-                    obj['msg'] = '로그인 성공!';
                 } else {
                     obj['suc'] = false;
-                    obj['msg'] = '로그인 실패!';
                 }
 
                 res.send(obj);
