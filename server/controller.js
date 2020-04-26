@@ -1,5 +1,7 @@
 const path = require('path');
 const model = require('./model');
+const moment = require('moment');
+require('moment-timezone');
 
 const hashing = require(path.join(__dirname, 'config', 'hashing.js'));
 const salt = require(path.join(__dirname, 'config', 'db.json')).salt;
