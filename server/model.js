@@ -15,6 +15,27 @@ module.exports = {
             }).catch(err => {
                 throw err;
             })
+        },
+        addUser: (body, hash, now, callback) => {
+            User.count({
+                where: {id: body.id},
+            }).then(cnt => {
+                if (cnt > 0) {
+                    callback(false);
+                } else {
+                    User.create({
+                        id: body.id,
+                        password: body.password,
+                        studentId: body.studentId,
+                        name: body.name,
+                        admin: body.admin,
+                        signUp_date: now
+                    }).then(() => callback(true));
+                }
+            }).catch(err => {
+                throw err;
+            })
         }
     }
 }
+

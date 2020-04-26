@@ -4,6 +4,9 @@ const model = require('./model');
 const hashing = require(path.join(__dirname, 'config', 'hashing.js'));
 const salt = require(path.join(__dirname, 'config', 'db.json')).salt;
 
+moment.tz.setDefault("Asia/Seoul");
+const now_date = moment().format('YYYY-MM-DD HH:mm:ss');
+
 module.exports = {
     user: {
         login: (req, res) => {
@@ -19,6 +22,15 @@ module.exports = {
                 }
 
                 res.send(obj);
+            })
+        },
+        signUp: (req, res) => {
+            const body = req.body;
+            const hash = hashing.enc(body.id, body.password, salt);
+
+            model.user.addUser(body, hash, now_date, result => {
+                result.result = result;
+                res.send(result.result);
             })
         }
     }

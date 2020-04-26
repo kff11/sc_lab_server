@@ -30,7 +30,12 @@ module.exports = (sequelize, DataTypes) => {
                 defaultValue: 0
             },
 
-            signup_date: {
+            studentId: {
+                type: DataTypes.STRING(15),
+                allowNull: false
+            },
+
+            signUp_date: {
                 type: DataTypes.DATE,
                 allowNull: false
             },
