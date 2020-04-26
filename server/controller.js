@@ -31,8 +31,14 @@ module.exports = {
             const hash = hashing.enc(body.id, body.password, salt);
 
             model.user.addUser(body, hash, now_date, result => {
-                result.result = result;
-                res.send(result.result);
+                let obj = {};
+                if (result) {
+                    obj['result'] = false;
+                } else {
+                    obj['result'] = true;
+                }
+
+                res.send(obj);
             })
         }
     }
