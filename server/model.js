@@ -66,6 +66,23 @@ module.exports = {
                     throw err;
                 })
         },
+    },
+    getState: {
+        lab319: (body, callback) => {
+            Lab_Seat_319.findAll()
+                .then(data => {
+                    console.log(data);
+                    callback(data)
+                })
+        },
+        lab319: (body, callback) => {
+            Lab_Seat_320.findAll()
+                .then(data => {
+                    console.log(data);
+                    callback(data)
+                })
+        }
+
     }
 }
 

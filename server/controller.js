@@ -58,6 +58,17 @@ module.exports = {
                     }
                     res.send(obj);
                 })
+        },
+        getState: (req, res) => {
+            const body = req.body;
+
+            body.lab === '319' ? model.getState.lab319(body, result => {
+                    res.send(result);
+                }) :
+                model.getState.lab320(body, result => {
+                    res.send(result);
+                })
+
         }
     }
 }
