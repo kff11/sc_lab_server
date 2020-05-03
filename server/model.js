@@ -2,6 +2,8 @@ const sequelize = require('./models').sequelize;
 
 const {
     User,
+    Lab_Seat_319,
+    Lab_Seat_320,
     Sequelize: {Op}
 } = require('./models');
 sequelize.query('SET NAMES utf8;');
@@ -25,16 +27,27 @@ module.exports = {
                 } else {
                     User.create({
                         id: body.id,
-                        password: body.password,
+                        password: hash,
                         studentId: body.studentId,
                         name: body.name,
                         admin: body.admin,
                         signUp_date: now
                     }).then(() => callback(true));
                 }
-            }).catch(err => {
-                throw err;
             })
+        }
+    },
+    lab319: {
+        reserve: (body, now, callback) => {
+            Lab_Seat_319.update({
+                name: body.name,
+                studentId: body.studentId,
+                useTime: now,
+            }, {where: {number: body.number}})
+                .then(() => callback(true))
+                .catch(err => {
+                    throw err;
+                })
         }
     }
 }

@@ -35,5 +35,7 @@ db.sequelize
     });
 
 db.User = require('./user')(sequelize, Sequelize);
+db.Lab_Seat_319 = require('./lab_319_seat')(sequelize, Sequelize);
+db.Lab_Seat_320 = require('./lab_320_seat')(sequelize, Sequelize);
 
 module.exports = db;

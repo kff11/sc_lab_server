@@ -13,10 +13,12 @@ sequelize.sync();
 app.use(express.json());
 app.use('/', router);
 
-const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/studylog.shop/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/studylog.shop/cert.pem')
-};
-
-
-https.createServer(options, app).listen(5001);
+if (process.env.NODE_ENV === 'production') {
+    const options = {
+        key: fs.readFileSync('/etc/letsencrypt/live/studylog.shop/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/studylog.shop/cert.pem')
+    }
+    https.createServer(options, app).listen(5001);
+} else {
+    http.createServer(app).listen(5001);
+}
