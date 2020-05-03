@@ -13,7 +13,11 @@ module.exports = {
             User.findAll({
                 where: {[Op.and]: [{id: body.id, password: hash}]}
             }).then(data => {
-                callback(data)
+                callback({
+                    suc: true,
+                    name: data[0].dataValues.name,
+                    studentId: data[0].dataValues.studentId
+                })
             }).catch(err => {
                 throw err;
             })
@@ -37,9 +41,10 @@ module.exports = {
             })
         }
     },
-    lab319: {
-        reserve: (body, now, callback) => {
+    reserve: {
+        lab319: (body, now, callback) => {
             Lab_Seat_319.update({
+                state: body.state,
                 name: body.name,
                 studentId: body.studentId,
                 useTime: now,
@@ -48,7 +53,19 @@ module.exports = {
                 .catch(err => {
                     throw err;
                 })
-        }
+        },
+        lab320: (body, now, callback) => {
+            Lab_Seat_320.update({
+                state: body.state,
+                name: body.name,
+                studentId: body.studentId,
+                useTime: now,
+            }, {where: {number: body.number}})
+                .then(() => callback(true))
+                .catch(err => {
+                    throw err;
+                })
+        },
     }
 }
 

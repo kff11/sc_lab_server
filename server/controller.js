@@ -15,15 +15,7 @@ module.exports = {
             const hash = hashing.enc(body.id, body.password, salt);
 
             model.user.findId(body, hash, result => {
-                let obj = {};
-                if (result[0]) {
-                    obj['suc'] = true;
-                    obj['studentId'] = result.studentId;
-                } else {
-                    obj['suc'] = false;
-                }
-
-                res.send(obj);
+                res.send(result);
             })
         },
         signUp: (req, res) => {
@@ -48,9 +40,24 @@ module.exports = {
             const body = req.body;
             const now_date = moment().format('YYYY-MM-DD HH:mm:ss');
 
-            model.lab319.reserve(body, now_date, result => {
-
-            })
+            body.lab === '319' ? model.reserve.lab319(body, now_date, result => {
+                    let obj = {};
+                    if (result) {
+                        obj['suc'] = true;
+                    } else {
+                        obj['suc'] = false;
+                    }
+                    res.send(obj);
+                }) :
+                model.reserve.lab320(body, now_date, result => {
+                    let obj = {};
+                    if (result) {
+                        obj['suc'] = true;
+                    } else {
+                        obj['suc'] = false;
+                    }
+                    res.send(obj);
+                })
         }
     }
 }
