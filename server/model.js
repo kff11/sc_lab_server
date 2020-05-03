@@ -71,8 +71,12 @@ module.exports = {
         lab319: (body, callback) => {
             Lab_Seat_319.findAll()
                 .then(data => {
-                    console.log(data);
-                    callback(data)
+                    let obj = {};
+                    for(let i = 0; i < 36, i++;){
+                        obj[i] = data[i].dataValues.state;
+                    }
+                    console.log(obj);
+                    callback(obj)
                 })
         },
         lab319: (body, callback) => {
