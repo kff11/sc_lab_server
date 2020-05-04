@@ -13,11 +13,7 @@ module.exports = {
             User.findAll({
                 where: {[Op.and]: [{id: body.id, password: hash}]}
             }).then(data => {
-                callback({
-                    suc: true,
-                    name: data[0].dataValues.name,
-                    studentId: data[0].dataValues.studentId
-                })
+                callback(data)
             }).catch(err => {
                 throw err;
             })
@@ -72,9 +68,15 @@ module.exports = {
             Lab_Seat_319.findAll()
                 .then(data => {
                     let obj = {};
+                    let key = new Array();
                     for (let i = 0; i < 36; i++) {
-                        obj[i + 1] = data[i].dataValues.state;
+                        key.push({
+                            number: i + 1,
+                            state: data[i].dataValues.state
+                        })
                     }
+                    obj['seat'] = key;
+                    console.log(obj)
                     callback(obj)
                 })
         },

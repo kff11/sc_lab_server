@@ -15,7 +15,15 @@ module.exports = {
             const hash = hashing.enc(body.id, body.password, salt);
 
             model.user.findId(body, hash, result => {
-                res.send(result);
+                let obj = {};
+                if(result[0]){
+                    obj['suc'] = true;
+                    obj['name'] = result[0].dataValues.name;
+                    obj['studentId'] = result[0].dataValues.studentId;
+                } else {
+                    obj['suc'] = false;
+                }
+                res.send(obj);
             })
         },
         signUp: (req, res) => {
